@@ -15,21 +15,4 @@ describe("stringifyNode()", function() {
     var $node = node($, $('b'));
     assert.equal(stringifyNode($node), "[nothing]");
   });
-
-  it("should strip contents if HTML is too long", function() {
-    var longString = (new Array(100)).join("x");
-    var $ = cheerio.load('<div class="hi">' + longString + '</div>');
-    var $node = node($, $('div'));
-    assert.equal(stringifyNode($node), '<div class="hi">...</div>');
-  });
-
-  it("should shorten long text nodes", function() {
-    var longString = (new Array(100)).join("x");
-    var $ = cheerio.load('<div class="hi">' + longString + '</div>');
-    var $node = node($, $('div').contents()[0]);
-
-    var stringified = stringifyNode($node);
-    assert.ok(stringified.length < longString.length);
-    assert.ok(/\.\.\."$/.test(stringified));
-  });
 });
