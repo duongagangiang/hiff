@@ -2,7 +2,7 @@ var compare = require('../').compare;
 var cheerio = require('cheerio');
 var cssPath = require('../lib/util/css-path');
 var assert = require('chai').assert;
-var fs = require('q-io/fs');
+var fs = require('fs/promises');
 var path = require('path');
 var _ = require('lodash');
 
@@ -58,7 +58,7 @@ describe("nodePath()", function() {
   });
 
   it("should produce paths that can be fed back to $()", function(done) {
-    fs.read(path.join(__dirname, "fixtures/path-roundtrip-test.html")).then(function(html) {
+    fs.readFile(path.join(__dirname, "fixtures/path-roundtrip-test.html")).then(function(html) {
       var $ = cheerio.load(html);
 
       // check if CSS paths roundtrip correctly for all nodes
